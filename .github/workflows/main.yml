@@ -1,17 +1,45 @@
 
-name: Roby Miner AI
+
+name: Publicar site Roby Miner AI
 
 on:
   workflow_dispatch:
-  schedule:
-    - cron: "0 */6 * * *"
+  push:
+    branches: ["main"]
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
 
 jobs:
-  monitor:
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
       - name: Baixar projeto
         uses: actions/checkout@v4
+
+      - name: Configurar Pages
+        uses: actions/configure-pages@v5
+
+      - name: Enviar arquivos do site
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: .
+
+      - name: Publicar site
+        id: deployment
+        uses: actions/deploy-pages@v4
+
 
       - name: Preparar Python
         uses: actions/setup-python@v5
