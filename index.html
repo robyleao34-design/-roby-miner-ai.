@@ -1,0 +1,79 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Roby Miner AI</title>
+<style>
+body{font-family:Arial;background:#f2f5fa;color:#172033;margin:0;padding:20px}
+header{background:#14213d;color:white;padding:25px;border-radius:15px}
+h1{margin:0}
+input{width:90%;padding:13px;margin:20px 0;border:1px solid #bbb;border-radius:8px}
+.card{background:white;padding:17px;margin:12px 0;border-radius:12px}
+a{color:#1456a0;font-weight:bold}
+small{color:#555}
+</style>
+</head>
+<body>
+<header>
+<h1>Roby Miner AI</h1>
+<p>Oportunidades gratuitas para ganhar dinheiro na internet.</p>
+</header>
+
+<h2>Pesquisar oportunidades</h2>
+<input id="busca" placeholder="Digite o nome de uma plataforma..." oninput="filtrar()">
+
+<div id="lista"></div>
+
+<p><b>Regra:</b> investimento próprio zero. Nunca pague para liberar tarefas.</p>
+<small>Consulte as regras, a disponibilidade no Brasil e as condições de saque nos sites oficiais. Ganhos não são garantidos.</small>
+
+<script>
+const plataformas = [
+{
+nome:"Clickworker",
+tipo:"Microtarefas",
+url:"https://www.clickworker.com/"
+},
+{
+nome:"Toloka",
+tipo:"Microtarefas e avaliação de dados",
+url:"https://toloka.ai/"
+},
+{
+nome:"Prolific",
+tipo:"Pesquisas remuneradas",
+url:"https://www.prolific.com/participants"
+},
+{
+nome:"UserTesting",
+tipo:"Testes de sites e aplicativos",
+url:"https://www.usertesting.com/get-paid-to-test"
+},
+{
+nome:"ySense",
+tipo:"Pesquisas e ofertas",
+url:"https://www.ysense.com/"
+}
+];
+
+function filtrar(){
+const busca=document.getElementById("busca").value.toLowerCase();
+const lista=document.getElementById("lista");
+
+lista.innerHTML=plataformas
+.filter(p=>(p.nome+" "+p.tipo).toLowerCase().includes(busca))
+.map(p=>`
+<div class="card">
+<h3>${p.nome}</h3>
+<p>${p.tipo}</p>
+<a href="${p.url}" target="_blank" rel="noopener">Visitar site oficial</a>
+</div>
+`).join("");
+}
+
+filtrar();
+</script>
+</body>
+</html>
